@@ -1,18 +1,18 @@
 #!/bin/bash
 
 #Script for simulation load for sakila
-#set -o xtrace
+set -o xtrace
 echo 'enter dbname'
 read dbname
 echo 'enter mysql root password'
 mysql_user=root
-read $mysql_password
+read mysql_password
 loader=~/bin/mysql_random_data_loader
 tablesename="actor actor_info address category city country customer customer_list film film_actor film_category film_list film_text inventory language nicer_but_slower_film_list payment rental sales_by_film_category sales_by_store staff staff_list store"
 
 
 for tablename in $tablesename; do
-   nohup $loader $dbname $tablename 5000 --host=127.0.0.1 --port=3306 --user=$mysql_user --password=$mysql_password --qps=1 --bulk-size=1 &
+   nohup $loader $dbname $tablename 5000 --host=127.0.0.1 --port=3306 --user=$mysql_user --password=$mysql_password --qps=2 --bulk-size=1 &
 done
 
 task(){
